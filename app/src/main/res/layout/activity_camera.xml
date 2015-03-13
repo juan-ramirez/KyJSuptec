@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#222"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/camera_preview"
+        android:layout_width="match_parent"
+        android:layout_height="800dp"
+        android:layout_above="@+id/buttonTomarFoto"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/buttonFotoTomada"
+        android:layout_width="184dp"
+        android:layout_height="74dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="23dp"
+        android:layout_marginLeft="27dp"
+        android:background="@drawable/tomar_otra"
+        android:onClick="snapOther"
+        android:textAlignment="center"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/buttonFotoOK"
+        android:layout_width="189dp"
+        android:layout_height="74dp"
+        android:layout_alignBaseline="@+id/buttonFotoTomada"
+        android:layout_alignBottom="@+id/buttonFotoTomada"
+        android:layout_toRightOf="@+id/buttonTomarFoto"
+        android:background="@drawable/foto_ok"
+        android:onClick="sendPhoto"
+        android:textAlignment="center"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/buttonTomarFoto"
+        android:layout_width="189dp"
+        android:layout_height="74dp"
+        android:layout_above="@+id/buttonFotoOK"
+        android:layout_toRightOf="@+id/buttonFotoTomada"
+        android:background="@drawable/tomar_foto"
+        android:onClick="snapIt" />
+
+</RelativeLayout>

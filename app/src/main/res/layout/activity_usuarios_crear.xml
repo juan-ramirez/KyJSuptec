@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="172dp"
+        android:background="#B3FFFFFF"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/editTextUsuariosNombre"
+            android:layout_width="400dp"
+            android:layout_height="60dp"
+            android:hint="Escriba el nombre de usuario"
+            android:singleLine="true"  >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/editTextUsuariosPassword"
+            android:layout_width="400dp"
+            android:layout_height="60dp"
+            android:hint="Escriba la contraseña"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/editTextUsuariosPasswordConfirmar"
+            android:layout_width="400dp"
+            android:layout_height="60dp"
+            android:hint="Confirme la contraseña"
+            android:inputType="textPassword" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonUsuariosCrear"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp"
+        android:background="#4D000000"
+        android:onClick="crearUsuario"
+        android:text="Crear" />
+
+</RelativeLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Spinner
+        android:id="@+id/spinnerObservaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@+id/textViewObservacionesTipo" />
+
+    <TextView
+        android:id="@+id/textViewObservacionesTipo"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/spinnerObservaciones"
+        android:text="Tipo de Observación"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editTextObservaciones"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/spinnerObservaciones"
+        android:layout_marginTop="22dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:maxLength="140" >
+    </EditText>
+
+    <ImageView
+        android:id="@+id/imageViewObservaciones1"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_alignRight="@+id/textViewObservacionesTipo"
+        android:layout_below="@+id/editTextObservaciones"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="53dp"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/imageViewObservaciones2"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imageViewObservaciones1"
+        android:layout_marginRight="23dp"
+        android:src="@drawable/ic_launcher" />
+
+</RelativeLayout>
