@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,5 +17,45 @@
             </intent-filter>
         </activity>
     </application>
-
+    <activity
+        android:name=".MainActivity"
+        android:label="Proyectos"
+        android:parentActivityName=".MainActivity"
+        android:screenOrientation="portrait" >
+    </activity>
+    <activity
+        android:name=".CrearModificarUsuarioActivity"
+        android:label="Proyectos"
+        android:parentActivityName=".AdministrarUsuariosActivity"
+        android:screenOrientation="portrait" >
+    </activity>
+    <activity
+        android:name=".AdministrarUsuariosActivity"
+        android:label="Proyectos"
+        android:parentActivityName=".MainActivity"
+        android:screenOrientation="portrait" >
+    </activity>
+    <activity
+        android:name=".FormularioActivity"
+        android:label="Proyectos"
+        android:parentActivityName=".MainActivity"
+        android:screenOrientation="portrait" >
+    </activity>
+    <activity
+        android:name=".MemoExpressActivity"
+        android:label="Proyectos"
+        android:parentActivityName=".MainActivity"
+        android:screenOrientation="portrait" >
+    </activity>
+    <activity
+        android:name=".EnviarFormulariosActivity"
+        android:label="Proyectos"
+        android:parentActivityName=".MainActivity"
+        android:screenOrientation="portrait" >
+    </activity>
+    <activity
+        android:name=".CameraActivity"
+        android:label="Proyectos"
+        android:screenOrientation="portrait" >
+    </activity>
 </manifest>
