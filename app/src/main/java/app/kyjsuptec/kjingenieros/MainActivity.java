@@ -1,7 +1,5 @@
 package app.kyjsuptec.kjingenieros;
 
-import java.util.ArrayList;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,315 +23,315 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+
+import app.kyjsuptec.kjingenieros.controllers.UserManager;
+
 public class MainActivity extends Activity {
 
-	private ArrayList<String> arrayListMenu;
-	private ListView listViewMenu;
-	private FormularioSimpleAdapter adapter;
-	private ArrayList<ArrayList<String>> formularios = null;
-	private Spinner spinnerFormularios;
-	private ArrayList<String> spinnerArray;
-	private int mCurrentPosition;
-	private ArrayList<String> mCurrentForm;
-	private static String m_Text = "1";
+    private ArrayList<String> arrayListMenu;
+    private ListView listViewMenu;
+    private FormularioSimpleAdapter adapter;
+    private ArrayList<ArrayList<String>> formularios = null;
+    private Spinner spinnerFormularios;
+    private ArrayList<String> spinnerArray;
+    private int mCurrentPosition;
+    private ArrayList<String> mCurrentForm;
+    private static String m_Text = "1";
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main_proyectos_formularios);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_proyectos_formularios);
 
-		arrayListMenu = new ArrayList<String>();
+        arrayListMenu = new ArrayList<String>();
 
-		ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getActionBar();
 
-		setTitle("Formularios");
+        setTitle("Formularios");
 
-		actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
-		inicializarObjetos();
-	}
+        Log.e("Proyecto - Main", UserManager.getProyecto(this));
 
-	private void inicializarObjetos() {
-		adapter = new FormularioSimpleAdapter(this, arrayListMenu);
+        inicializarObjetos();
+    }
 
-		listViewMenu = (ListView) findViewById(R.id.listViewProyectos_Formularios);
+    private void inicializarObjetos() {
+        adapter = new FormularioSimpleAdapter(this, arrayListMenu);
 
-		listViewMenu.setAdapter(adapter);
+        listViewMenu = (ListView) findViewById(R.id.listViewProyectos_Formularios);
 
-		listViewMenu.setOnItemClickListener(new OnItemClickListener() {
+        listViewMenu.setAdapter(adapter);
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				Intent generalIntent;
+        listViewMenu.setOnItemClickListener(new OnItemClickListener() {
 
-				if (mCurrentPosition == spinnerArray.size() - 1) {
-					mCurrentForm = new ArrayList<String>();
-					generalIntent = new Intent(getApplicationContext(),
-							FormularioActivity.class);
-					String item = adapter.getItem(position);
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Intent generalIntent;
 
-					for (int i = 0; i < formularios.size(); i++) {
-						ArrayList<String> elemento = formularios.get(i);
-						String dato = elemento.get(0) + " " + elemento.get(1);
-						if (item.equals(dato)) {
-							mCurrentForm = elemento;
-						}
-					}
-					generalIntent.putExtra("esCargar", true);
+                if (mCurrentPosition == spinnerArray.size() - 1) {
+                    mCurrentForm = new ArrayList<String>();
+                    generalIntent = new Intent(getApplicationContext(),
+                            FormularioActivity.class);
+                    String item = adapter.getItem(position);
 
-					generalIntent.putExtra("numeroFormulario",
-							(Integer.parseInt(mCurrentForm.get(2))));
+                    for (int i = 0; i < formularios.size(); i++) {
+                        ArrayList<String> elemento = formularios.get(i);
+                        String dato = elemento.get(0) + " " + elemento.get(1);
+                        if (item.equals(dato)) {
+                            mCurrentForm = elemento;
+                        }
+                    }
+                    generalIntent.putExtra("esCargar", true);
 
-					generalIntent.putExtra("nombreFormulario",
-							mCurrentForm.get(0));
+                    generalIntent.putExtra("numeroFormulario",
+                            (Integer.parseInt(mCurrentForm.get(2))));
 
-					generalIntent.putExtra("id_formulario", item);
+                    generalIntent.putExtra("nombreFormulario",
+                            mCurrentForm.get(0));
 
-					startActivity(generalIntent);
-				} else {
-					generalIntent = new Intent(getApplicationContext(),
-							EnviarFormulariosActivity.class);
-					generalIntent.putExtra("date", arrayListMenu.get(position));
+                    generalIntent.putExtra("id_formulario", item);
 
-					String code = spinnerArray.get(mCurrentPosition);
-					code = code.substring(code.length() - 7, code.length());
-					generalIntent.putExtra("code", code);
+                    startActivity(generalIntent);
+                } else {
+                    generalIntent = new Intent(getApplicationContext(),
+                            EnviarFormulariosActivity.class);
+                    generalIntent.putExtra("date", arrayListMenu.get(position));
 
-					String nombreFormulario = spinnerArray
-							.get(mCurrentPosition);
-					generalIntent
-							.putExtra("nombreFormulario", nombreFormulario);
+                    String code = spinnerArray.get(mCurrentPosition);
+                    code = code.substring(code.length() - 7, code.length());
+                    generalIntent.putExtra("code", code);
 
-					startActivity(generalIntent);
-				}
-			}
-		});
+                    String nombreFormulario = spinnerArray
+                            .get(mCurrentPosition);
+                    generalIntent
+                            .putExtra("nombreFormulario", nombreFormulario);
 
-		spinnerFormularios = (Spinner) findViewById(R.id.spinnerFormularios);
+                    startActivity(generalIntent);
+                }
+            }
+        });
 
-		ArrayAdapter<String> spinnerArrayAdapter;
-		spinnerArray = new ArrayList<String>();
+        spinnerFormularios = (Spinner) findViewById(R.id.spinnerFormularios);
 
-		spinnerArray.add("EMPAQUE Y ROTULADO DE CEMENTO - FST001");
-		spinnerArray.add("EVALUACI�N CONCRETO - FST002");
-		spinnerArray.add("VERIFICACI�N CONDICIONES DE CIMENTACI�N - FST003");
-		spinnerArray
-				.add("MEZCLA, TRANSPORTE, COLOCACI�N Y CURADO DE CONCRETOS - FST004");
-		spinnerArray
-				.add("CONSTRUCCI�N Y RETIRO DE FORMALETAS, OBRA FALSA - FST005");
-		spinnerArray.add("COLOCACI�N ACERO DE REFUERZO - FST006");
-		spinnerArray.add("ACEPTACI�N DE ELEMENTOS VACIADOS - FST007");
-		spinnerArray
-				.add("REQUISITOS DE EJECUCI�N - MUROS Y ELEMENTOS DE MAMPOSTER�A - FST008");
-		spinnerArray.add("LIBERACI�N DE ELEMENTOS - FST009");
-		spinnerArray.add("INCOMPLETOS");
+        ArrayAdapter<String> spinnerArrayAdapter;
+        spinnerArray = new ArrayList<String>();
 
-		spinnerArrayAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_dropdown_item, spinnerArray);
-		spinnerFormularios.setAdapter(spinnerArrayAdapter);
-		spinnerFormularios
-				.setOnItemSelectedListener(new OnItemSelectedListener() {
+        spinnerArray.add(getString(R.string.FST001_TITULO));
+        spinnerArray.add(getString(R.string.FST002_TITULO));
+        spinnerArray.add(getString(R.string.FST003_TITULO));
+        spinnerArray.add(getString(R.string.FST004_TITULO));
+        spinnerArray.add(getString(R.string.FST005_TITULO));
+        spinnerArray.add(getString(R.string.FST006_TITULO));
+        spinnerArray.add(getString(R.string.FST007_TITULO));
+        spinnerArray.add(getString(R.string.FST008_TITULO));
+        spinnerArray.add(getString(R.string.FST009_TITULO));
+        spinnerArray.add(getString(R.string.incompletos));
 
-					@Override
-					public void onItemSelected(AdapterView<?> arg0, View arg1,
-							int arg2, long arg3) {
-						mCurrentPosition = arg2;
-						refrescarDatos();
-					}
+        spinnerArrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, spinnerArray);
+        spinnerFormularios.setAdapter(spinnerArrayAdapter);
+        spinnerFormularios
+                .setOnItemSelectedListener(new OnItemSelectedListener() {
 
-					@Override
-					public void onNothingSelected(AdapterView<?> arg0) {
-						// TODO Auto-generated method stub
+                    @Override
+                    public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                               int arg2, long arg3) {
+                        mCurrentPosition = arg2;
+                        refrescarDatos();
+                    }
 
-					}
-				});
+                    @Override
+                    public void onNothingSelected(AdapterView<?> arg0) {
+                        // TODO Auto-generated method stub
 
-	}
+                    }
+                });
 
-	@SuppressWarnings("unchecked")
-	public void refrescarDatos() {
-		arrayListMenu.clear();
+    }
 
-		SharedPreferences mPrefs = getSharedPreferences("my_prefs",
-				MODE_PRIVATE);
-		Gson gson = new Gson();
-		String jsonFormularios = mPrefs.getString("Formularios", "");
+    @SuppressWarnings("unchecked")
+    public void refrescarDatos() {
+        arrayListMenu.clear();
 
-		if (jsonFormularios.equals("")) {
-			formularios = new ArrayList<ArrayList<String>>();
-		} else {
-			formularios = gson.fromJson(jsonFormularios, ArrayList.class);
-		}
+        SharedPreferences mPrefs = getSharedPreferences("my_prefs",
+                MODE_PRIVATE);
+        Gson gson = new Gson();
+        String jsonFormularios = mPrefs.getString("Formularios", "");
 
-		for (int i = 0; i < formularios.size(); i++) {
-			ArrayList<String> formulario = formularios.get(i);
-			String incompleto = formulario.get(formulario.size() - 4);
-			String element = formulario.get(0);
-			String opcion = spinnerArray.get(mCurrentPosition);
-			if (element.equals(opcion)) {
-				if (!incompleto.equals("Incompleto")) {
-					String now = formulario.get(1);
-					String date = now.substring(0, 10);
-					if (!arrayListMenu.contains(date)) {
-						// arrayListMenu.add(now);
-						arrayListMenu.add(date);
-					}
-				}
-			} else if (opcion.equals("INCOMPLETOS")) {
-				if (incompleto.equals("Incompleto")) {
-					String now = formulario.get(1);
-					if (!arrayListMenu.contains(element + " " + now)) {
-						// arrayListMenu.add(now);
-						arrayListMenu.add(element + " " + now);
-					}
-				}
-			}
+        if (jsonFormularios.equals("")) {
+            formularios = new ArrayList<ArrayList<String>>();
+        } else {
+            formularios = gson.fromJson(jsonFormularios, ArrayList.class);
+        }
 
-		}
-		adapter.notifyDataSetChanged();
-	}
+        for (int i = 0; i < formularios.size(); i++) {
+            ArrayList<String> formulario = formularios.get(i);
+            String incompleto = formulario.get(formulario.size() - 4);
+            String element = formulario.get(0);
+            String opcion = spinnerArray.get(mCurrentPosition);
+            if (element.equals(opcion)) {
+                if (!incompleto.equals("Incompleto")) {
+                    String now = formulario.get(1);
+                    String date = now.substring(0, 10);
+                    if (!arrayListMenu.contains(date)) {
+                        // arrayListMenu.add(now);
+                        arrayListMenu.add(date);
+                    }
+                }
+            } else if (opcion.equals("INCOMPLETOS")) {
+                if (incompleto.equals("Incompleto")) {
+                    String now = formulario.get(1);
+                    if (!arrayListMenu.contains(element + " " + now)) {
+                        // arrayListMenu.add(now);
+                        arrayListMenu.add(element + " " + now);
+                    }
+                }
+            }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+        }
+        adapter.notifyDataSetChanged();
+    }
 
-		Bundle bundle = getIntent().getExtras();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
 
-		if (bundle != null) {
-			String result = bundle.getString("perfil", "empty");
-			if (!result.equals("administrador")) {
-				menu.findItem(R.id.action_settings).setVisible(false);
-			}
-		}
-		return true;
-	}
+        Bundle bundle = getIntent().getExtras();
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle presses on the action bar items
-		switch (item.getItemId()) {
-		case R.id.action_settings:
-			Intent intent = new Intent(getApplicationContext(),
-					AdministrarUsuariosActivity.class);
-			startActivity(intent);
-			return true;
-		case R.id.action_new:
+        if (bundle != null) {
+            String result = bundle.getString("perfil", "empty");
+            if (!result.equals("administrador")) {
+                menu.findItem(R.id.action_settings).setVisible(false);
+            }
+        }
+        return true;
+    }
 
-			showMessageFormularios();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(getApplicationContext(),
+                        AdministrarUsuariosActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_new:
 
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+                showMessageFormularios();
 
-	private void showMessageFormularios() {
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setTitle("Nuevo formulario");
-		alert.setMessage("Por favor escoja uno de los formularios");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
-		final Spinner input = new Spinner(this);
-		ArrayAdapter<String> spinnerArrayAdapter;
-		ArrayList<String> spinnerArray = new ArrayList<String>();
+    private void showMessageFormularios() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Nuevo formulario");
+        alert.setMessage("Por favor escoja uno de los formularios");
 
-		spinnerArray.add("EMPAQUE Y ROTULADO DE CEMENTO - FST001");
-		spinnerArray.add("EVALUACI�N CONCRETO - FST002");
-		spinnerArray.add("VERIFICACI�N CONDICIONES DE CIMENTACI�N - FST003");
-		spinnerArray
-				.add("MEZCLA, TRANSPORTE, COLOCACI�N Y CURADO DE CONCRETOS - FST004");
-		spinnerArray
-				.add("CONSTRUCCI�N Y RETIRO DE FORMALETAS, OBRA FALSA - FST005");
-		spinnerArray.add("COLOCACI�N ACERO DE REFUERZO - FST006");
-		spinnerArray.add("ACEPTACI�N DE ELEMENTOS VACIADOS - FST007");
-		spinnerArray
-				.add("REQUISITOS DE EJECUCI�N - MUROS Y ELEMENTOS DE MAMPOSTER�A - FST008");
-		spinnerArray.add("LIBERACI�N DE ELEMENTOS - FST009");
-		spinnerArray.add("MEMO EXPRES");
+        final Spinner input = new Spinner(this);
+        ArrayAdapter<String> spinnerArrayAdapter;
+        ArrayList<String> spinnerArray = new ArrayList<String>();
 
-		spinnerArrayAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_dropdown_item, spinnerArray);
-		input.setAdapter(spinnerArrayAdapter);
+        spinnerArray.add(getString(R.string.FST001_TITULO));
+        spinnerArray.add(getString(R.string.FST002_TITULO));
+        spinnerArray.add(getString(R.string.FST003_TITULO));
+        spinnerArray.add(getString(R.string.FST004_TITULO));
+        spinnerArray.add(getString(R.string.FST005_TITULO));
+        spinnerArray.add(getString(R.string.FST006_TITULO));
+        spinnerArray.add(getString(R.string.FST007_TITULO));
+        spinnerArray.add(getString(R.string.FST008_TITULO));
+        spinnerArray.add(getString(R.string.FST009_TITULO));
+        spinnerArray.add(getString(R.string.memo_expres));
 
-		alert.setView(input);
+        spinnerArrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, spinnerArray);
+        input.setAdapter(spinnerArrayAdapter);
 
-		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
+        alert.setView(input);
 
-				if (input.getSelectedItem().toString().equals("MEMO EXPRES")) {
-					generalIntent = new Intent(getApplicationContext(),
-							MemoExpressActivity.class);
-				} else {
-					generalIntent = new Intent(getApplicationContext(),
-							FormularioActivity.class);
-					generalIntent.putExtra("numeroFormulario",
-							(input.getSelectedItemPosition() + 1));
-					generalIntent.putExtra("nombreFormulario", input
-							.getSelectedItem().toString());
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
 
-				}
-				if ((input.getSelectedItemPosition() + 1) == 6) {
-					showMessageCantidad();
-				} else {
-					startActivity(generalIntent);
-				}
+                if (input.getSelectedItem().toString().equals("MEMO EXPRES")) {
+                    generalIntent = new Intent(getApplicationContext(),
+                            MemoExpressActivity.class);
+                } else {
+                    generalIntent = new Intent(getApplicationContext(),
+                            FormularioActivity.class);
+                    generalIntent.putExtra("numeroFormulario",
+                            (input.getSelectedItemPosition() + 1));
+                    generalIntent.putExtra("nombreFormulario", input
+                            .getSelectedItem().toString());
 
-			}
-		});
-		alert.setNegativeButton("Cancel",
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
+                }
+                if ((input.getSelectedItemPosition() + 1) == 6) {
+                    showMessageCantidad();
+                } else {
+                    startActivity(generalIntent);
+                }
 
-					}
-				});
-		alert.show();
-	}
+            }
+        });
+        alert.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
 
-	Intent generalIntent;
+                    }
+                });
+        alert.show();
+    }
 
-	private void showMessageCantidad() {
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setTitle("Cantidad");
-		alert.setMessage("Por favor ingrese el n�mero de barras que desea");
+    Intent generalIntent;
 
-		final EditText input = new EditText(this);
-		input.setInputType(InputType.TYPE_CLASS_NUMBER);
-		alert.setView(input);
+    private void showMessageCantidad() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Cantidad");
+        alert.setMessage("Por favor ingrese el número de barras que desea");
 
-		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				m_Text = input.getText().toString();
-				int reps = 1;
-				try {
-					reps = Integer.parseInt(m_Text);
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
-				generalIntent.putExtra("reps", reps);
-				startActivity(generalIntent);
-			}
-		});
-		alert.setNegativeButton("Cancel",
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        alert.setView(input);
 
-					}
-				});
-		alert.show();
-	}
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                m_Text = input.getText().toString();
+                int reps = 1;
+                try {
+                    reps = Integer.parseInt(m_Text);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+                generalIntent.putExtra("reps", reps);
+                startActivity(generalIntent);
+            }
+        });
+        alert.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
 
-	public void popMessage(String text) {
-		Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT)
-				.show();
-	}
+                    }
+                });
+        alert.show();
+    }
 
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
-		refrescarDatos();
+    public void popMessage(String text) {
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT)
+                .show();
+    }
 
-	}
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
+        refrescarDatos();
+
+    }
 
 }

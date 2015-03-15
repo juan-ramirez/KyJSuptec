@@ -28,7 +28,7 @@ public class AdministrarUsuariosActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_proyectos_formularios);
 
-		setTitle("Administraci�n de usuarios");
+		setTitle("Administración de usuarios");
 
 		inicializarBD();
 		cargarUsuarios();

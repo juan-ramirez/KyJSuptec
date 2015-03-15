@@ -39,7 +39,7 @@ public class FormularioViewGenerator {
 			arrayListElementosFormulario.add(getView(i));
 		}
 
-		return arrayListElementosFormulario;
+        return arrayListElementosFormulario;
 	}
 
 	public View getView(int position) {

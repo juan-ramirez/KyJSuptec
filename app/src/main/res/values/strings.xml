@@ -5,4 +5,33 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 
+    <!--Custom Parse elements-->
+    <string name="parse_app_id">nX31BlvMstq0c4vCeMwVYAWxO8uR5EcBz8pQa2SQ</string>
+    <string name="parse_client_key">AO6slUek6JImyka5YMSCLATuiepfREnSp10cG6em</string>
+
+    <!--Login Stuff-->
+    <string name="acceder">Acceder</string>
+    <string name="show_dialog">¿Desea iniciar como local?</string>
+    <string name="wrong_data">Usuario o contraseña erróneos</string>
+
+    <!--Main Activity Stuff-->
+    <string name="evidence_check">No ha ingresado ninguna evidencia, ¿Desea guardarlo sin evidencia?</string>
+    <string name="incomplete_check">El formulario se encuentra incompleto, ¿Desea guardarlo así?</string>
+    <string name="FST001_TITULO">EMPAQUE Y ROTULADO DE CEMENTO - FST001</string>
+    <string name="FST002_TITULO">EVALUACIÓN CONCRETO - FST002</string>
+    <string name="FST003_TITULO">VERIFICACIÓN CONDICIONES DE CIMENTACIÓN - FST003</string>
+    <string name="FST004_TITULO">MEZCLA, TRANSPORTE, COLOCACIÓN Y CURADO DE CONCRETOS - FST004</string>
+    <string name="FST005_TITULO">CONSTRUCCIÓN Y RETIRO DE FORMALETAS, OBRA FALSA - FST005</string>
+    <string name="FST006_TITULO">COLOCACIÓN ACERO DE REFUERZO - FST006</string>
+    <string name="FST007_TITULO">ACEPTACIÓN DE ELEMENTOS VACIADOS - FST007</string>
+    <string name="FST008_TITULO">REQUISITOS DE EJECUCIÓN - MUROS Y ELEMENTOS DE MAMPOSTERÍA - FST008</string>
+    <string name="FST009_TITULO">LIBERACIÓN DE ELEMENTOS PARA VACIADO - FST009</string>
+    <string name="memo_expres">MEMO EXPRES</string>
+    <string name="incompletos">INCOMPLETOS</string>
+    <string name="title_activity_local_user_init">LocalUserInitActivity</string>
+    <string name="proyecto">Proyecto</string>
+    <string name="reviso">Revisó</string>
+    <string name="aprobo">Aprobó</string>
+    <string name="continuar">Continuar</string>
+
 </resources>

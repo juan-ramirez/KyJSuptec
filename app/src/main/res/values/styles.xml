@@ -17,4 +17,10 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="LoginElement" parent="AppBaseTheme">
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:layout_width">400dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:background">@color/edit_text_login_background</item>
+    </style>
 </resources>

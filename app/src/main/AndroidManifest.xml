@@ -2,60 +2,70 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.kyjsuptec.kjingenieros" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
+        android:name=".basic.CustomApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/app_name" >
+            android:name=".UserLoginActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="Proyectos"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CrearModificarUsuarioActivity"
+            android:label="Proyectos"
+            android:parentActivityName=".AdministrarUsuariosActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AdministrarUsuariosActivity"
+            android:label="Proyectos"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FormularioActivity"
+            android:label="Proyectos"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MemoExpressActivity"
+            android:label="Proyectos"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EnviarFormulariosActivity"
+            android:label="Proyectos"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CameraActivity"
+            android:label="Proyectos"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LocalUserInitActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_local_user_init" >
+        </activity>
     </application>
-    <activity
-        android:name=".MainActivity"
-        android:label="Proyectos"
-        android:parentActivityName=".MainActivity"
-        android:screenOrientation="portrait" >
-    </activity>
-    <activity
-        android:name=".CrearModificarUsuarioActivity"
-        android:label="Proyectos"
-        android:parentActivityName=".AdministrarUsuariosActivity"
-        android:screenOrientation="portrait" >
-    </activity>
-    <activity
-        android:name=".AdministrarUsuariosActivity"
-        android:label="Proyectos"
-        android:parentActivityName=".MainActivity"
-        android:screenOrientation="portrait" >
-    </activity>
-    <activity
-        android:name=".FormularioActivity"
-        android:label="Proyectos"
-        android:parentActivityName=".MainActivity"
-        android:screenOrientation="portrait" >
-    </activity>
-    <activity
-        android:name=".MemoExpressActivity"
-        android:label="Proyectos"
-        android:parentActivityName=".MainActivity"
-        android:screenOrientation="portrait" >
-    </activity>
-    <activity
-        android:name=".EnviarFormulariosActivity"
-        android:label="Proyectos"
-        android:parentActivityName=".MainActivity"
-        android:screenOrientation="portrait" >
-    </activity>
-    <activity
-        android:name=".CameraActivity"
-        android:label="Proyectos"
-        android:screenOrientation="portrait" >
-    </activity>
+
 </manifest>

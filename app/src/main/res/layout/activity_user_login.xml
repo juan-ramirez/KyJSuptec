@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/login"
+    tools:context="app.kyjsuptec.kjingenieros.UserLoginActivity">
+
+    <!-- Login progress -->
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/email_login_form"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <AutoCompleteTextView
+                style="@style/LoginElement"
+                android:id="@+id/email"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                style="@style/LoginElement"
+                android:id="@+id/password"
+                android:hint="@string/prompt_password"
+                android:inputType="textPassword"
+                android:layout_below="@+id/email" />
+
+            <Button
+                android:id="@+id/email_sign_in_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/password"
+                android:text="@string/acceder"
+                android:textStyle="bold"
+                android:background="@color/edit_text_login_background" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>
+
+
+

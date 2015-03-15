@@ -8,4 +8,6 @@
         <!-- API 11 theme customizations can go here. -->
     </style>
 
+    <dimen name="edit_text_padding">5dp</dimen>
+    <color name="edit_text_login_background">#B3FFFFFF</color>
 </resources>

@@ -103,10 +103,9 @@ public class FormularioFactory {
 
     public ArrayList<DatoFormularioFactory> getFormulario(int tipo, int reps) {
         formulario = new ArrayList<DatoFormularioFactory>();
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Proyecto",
-                ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Revisó", ALFABETICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Aprobó", ALFABETICO));
+//        formulario.add(new DatoFormularioFactory(TIPO_1, "Proyecto", ALFANUMERICO));
+//        formulario.add(new DatoFormularioFactory(TIPO_1, "Revisó", ALFABETICO));
+//        formulario.add(new DatoFormularioFactory(TIPO_1, "Aprobó", ALFABETICO));
         switch (tipo) {
             case 1:
                 return getf1();
