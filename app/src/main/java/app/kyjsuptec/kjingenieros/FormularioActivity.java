@@ -15,8 +15,10 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
@@ -43,12 +45,14 @@ import android.widget.TimePicker;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import app.kyjsuptec.kjingenieros.controllers.UserManager;
 
@@ -71,6 +75,11 @@ public class FormularioActivity extends FragmentActivity {
     public static String pic1Cargar;
     public static String pic2Cargar;
     public static String evidenciaEscritaCargar;
+
+    private static final int CAMERA_REQUEST = 1888;
+    private static final int CAMERA_REQUEST_2 = 1889;
+    private static String mCurrentPhotoPath;
+
 
     @SuppressWarnings("unchecked")
     @Override
@@ -652,6 +661,7 @@ public class FormularioActivity extends FragmentActivity {
         }
     }
 
+
     public static class ExampleFragmentTwo extends Fragment {
 
         private static final int MAX_IMAGE_DIMENSION = 250;
@@ -709,7 +719,7 @@ public class FormularioActivity extends FragmentActivity {
 
         private void inicializarSpinner(View rootView) {
             ArrayList<String> SpinnerArray = new ArrayList<String>();
-            SpinnerArray.add("Evidencia fotogr�fica");
+            SpinnerArray.add("Evidencia fotográfica");
             SpinnerArray.add("Evidencia escrita");
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -764,6 +774,55 @@ public class FormularioActivity extends FragmentActivity {
             registerForContextMenu(foto2);
         }
 
+        //Space for tryout
+
+        private void setPic(ImageView mImageView) {
+            // Get the dimensions of the View
+            int targetW = mImageView.getWidth();
+            int targetH = mImageView.getHeight();
+
+            // Get the dimensions of the bitmap
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+            int photoW = bmOptions.outWidth;
+            int photoH = bmOptions.outHeight;
+
+            // Determine how much to scale down the image
+            int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+
+            // Decode the image file into a Bitmap sized to fill the View
+            bmOptions.inJustDecodeBounds = false;
+            bmOptions.inSampleSize = scaleFactor;
+            bmOptions.inPurgeable = true;
+
+            Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+            mImageView.setImageBitmap(bitmap);
+        }
+
+        private Bitmap improvePic() {
+            // Get the dimensions of the View
+            int targetW = 400;
+            int targetH = 400;
+
+            // Get the dimensions of the bitmap
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+            int photoW = bmOptions.outWidth;
+            int photoH = bmOptions.outHeight;
+
+            // Determine how much to scale down the image
+            int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+
+            // Decode the image file into a Bitmap sized to fill the View
+            bmOptions.inJustDecodeBounds = false;
+            bmOptions.inSampleSize = scaleFactor;
+
+            return  BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+
+        }
+
         public void onActivityResult(int requestCode, int resultCode,
                                      Intent imageReturnedIntent) {
             super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
@@ -774,12 +833,15 @@ public class FormularioActivity extends FragmentActivity {
 
             switch (requestCode) {
 
-                case 0:// Toma foto
+                //case 0:// Toma foto
+                case CAMERA_REQUEST:// Toma foto
                     if (resultCode == RESULT_OK) {
                         // fotoBitmapFinal = (Bitmap)
                         // imageReturnedIntent.getExtras().get("data");
 
-                        byte[] data = extras.getByteArray("pic");
+                        //Log.e("Pic", "" + (extras == null));
+
+                        /*byte[] data = extras.getByteArray("pic");
 
                         fotoBitmapFinal = BitmapFactory.decodeByteArray(data, 0,
                                 data.length);
@@ -790,7 +852,19 @@ public class FormularioActivity extends FragmentActivity {
 
                         foto1.setImageBitmap(fotoBitmapFinal);
 
-                        isFoto1Default = false;
+                        isFoto1Default = false;*/
+
+                        File file = new File(mCurrentPhotoPath);
+                        if (file.exists()) {
+                            Log.e("File", "exists");
+                            setPic(foto1);
+                            pic1 = redimensionarImagen(improvePic());
+                            isFoto1Default = false;
+                        } else {
+                            Log.e("File", "oh noes exists");
+
+                        }
+
 
                     }
 
@@ -888,7 +962,7 @@ public class FormularioActivity extends FragmentActivity {
         }
 
         public static int getOrientation(Context context, Uri photoUri) {
-			/* it's on the external media. */
+            /* it's on the external media. */
             Cursor cursor = context
                     .getContentResolver()
                     .query(photoUri,
@@ -943,7 +1017,7 @@ public class FormularioActivity extends FragmentActivity {
             is.close();
 
 			/*
-			 * if the orientation is not 0 (or -1, which means we don't know),
+             * if the orientation is not 0 (or -1, which means we don't know),
 			 * we have to do a rotation.
 			 */
             if (orientation > 0) {
@@ -997,11 +1071,59 @@ public class FormularioActivity extends FragmentActivity {
             inflater.inflate(R.menu.main, menu);
         }
 
+        //Test Method
+        private void dispatchTakePictureIntent() {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                File photoFile = null;
+                try {
+                    photoFile = createImageFile();
+                } catch (IOException ex) {
+                    Log.e("IO - Ex", ex.toString());
+                }
+                // Continue only if the File was successfully created
+                if (photoFile != null) {
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                            Uri.fromFile(photoFile));
+                    startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+                }
+            }
+        }
+
+
+        private File createImageFile() throws IOException {
+            // Create an image file name
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String imageFileName = "JPEG_" + timeStamp + "_";
+            //File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            //File storageDir = Environment.getExternalStorageDirectory();
+            /*File image = File.createTempFile(
+                    imageFileName,  *//* prefix *//*
+                    ".jpg",         *//* suffix *//*
+                    storageDir      *//* directory *//*
+            );*/
+
+            File image = new File(Environment.getExternalStorageDirectory() + "/"
+                    + imageFileName + ".jpg");
+
+            // Save a file: path for use with ACTION_VIEW intents
+            //mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+            mCurrentPhotoPath = image.getPath();
+            Log.e("mCurrentPhotoPath", mCurrentPhotoPath);
+            return image;
+        }
+
+        //Space for tryout
+
         private void tomarFoto(View v) {
             if (v == foto1) {
 
-                Intent intent = new Intent(getActivity(), CameraActivity.class);
-                startActivityForResult(intent, 0);
+                //Intent intent = new Intent(getActivity(), CameraActivity.class);
+                //startActivityForResult(intent, 0);
+//                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+
+                dispatchTakePictureIntent();
 
             } else if (v == foto2) {
 
@@ -1071,7 +1193,7 @@ public class FormularioActivity extends FragmentActivity {
     private void showMessageDescartar() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Descartar");
-        alert.setMessage("�Desea descartarlo? ");
+        alert.setMessage(getString(R.string.desea_descartarlo));
 
         alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -1086,5 +1208,6 @@ public class FormularioActivity extends FragmentActivity {
         alert.show();
 
     }
+
 
 }

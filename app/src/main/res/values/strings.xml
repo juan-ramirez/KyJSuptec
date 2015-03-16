@@ -21,7 +21,7 @@
     <string name="FST002_TITULO">EVALUACIÓN CONCRETO - FST002</string>
     <string name="FST003_TITULO">VERIFICACIÓN CONDICIONES DE CIMENTACIÓN - FST003</string>
     <string name="FST004_TITULO">MEZCLA, TRANSPORTE, COLOCACIÓN Y CURADO DE CONCRETOS - FST004</string>
-    <string name="FST005_TITULO">CONSTRUCCIÓN Y RETIRO DE FORMALETAS, OBRA FALSA - FST005</string>
+    <string name="FST005_TITULO">CONSTRUCCIÓN DE FORMALETAS, OBRA FALSA - FST005</string>
     <string name="FST006_TITULO">COLOCACIÓN ACERO DE REFUERZO - FST006</string>
     <string name="FST007_TITULO">ACEPTACIÓN DE ELEMENTOS VACIADOS - FST007</string>
     <string name="FST008_TITULO">REQUISITOS DE EJECUCIÓN - MUROS Y ELEMENTOS DE MAMPOSTERÍA - FST008</string>
@@ -33,5 +33,6 @@
     <string name="reviso">Revisó</string>
     <string name="aprobo">Aprobó</string>
     <string name="continuar">Continuar</string>
+    <string name="desea_descartarlo">"¿Desea descartarlo? "</string>
 
 </resources>

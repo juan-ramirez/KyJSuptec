@@ -2,4 +2,5 @@
 <resources>
     <string name="acceder">Acceder</string>
     <string name="show_dialog">¿Desea iniciar con un usuario local?</string>
+    <string name="desea_descartarlo">"¿Desea descartarlo? "</string>
 </resources>
