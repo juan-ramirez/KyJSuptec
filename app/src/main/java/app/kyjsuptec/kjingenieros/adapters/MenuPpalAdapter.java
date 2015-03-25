@@ -1,4 +1,4 @@
-package app.kyjsuptec.kjingenieros;
+package app.kyjsuptec.kjingenieros.adapters;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +20,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import app.kyjsuptec.kjingenieros.helpers.DataBaseHelper;
+import app.kyjsuptec.kjingenieros.R;
 
 public class MenuPpalAdapter extends ArrayAdapter<String> {
 

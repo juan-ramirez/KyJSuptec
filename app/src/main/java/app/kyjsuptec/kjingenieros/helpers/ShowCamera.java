@@ -1,4 +1,4 @@
-package app.kyjsuptec.kjingenieros;
+package app.kyjsuptec.kjingenieros.helpers;
 
 import android.content.Context;
 import android.hardware.Camera;

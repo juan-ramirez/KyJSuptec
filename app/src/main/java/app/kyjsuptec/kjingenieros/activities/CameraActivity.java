@@ -1,4 +1,4 @@
-package app.kyjsuptec.kjingenieros;
+package app.kyjsuptec.kjingenieros.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -14,6 +14,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import app.kyjsuptec.kjingenieros.R;
+import app.kyjsuptec.kjingenieros.helpers.ShowCamera;
 
 public class CameraActivity extends Activity {
 

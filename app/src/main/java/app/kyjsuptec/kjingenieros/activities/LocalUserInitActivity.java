@@ -1,4 +1,4 @@
-package app.kyjsuptec.kjingenieros;
+package app.kyjsuptec.kjingenieros.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import app.kyjsuptec.kjingenieros.R;
 import app.kyjsuptec.kjingenieros.controllers.UserManager;
 
 

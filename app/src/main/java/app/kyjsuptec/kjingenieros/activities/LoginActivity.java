@@ -1,4 +1,4 @@
-package app.kyjsuptec.kjingenieros;
+package app.kyjsuptec.kjingenieros.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -17,6 +17,9 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 
 import java.io.IOException;
+
+import app.kyjsuptec.kjingenieros.helpers.DataBaseHelper;
+import app.kyjsuptec.kjingenieros.R;
 
 public class LoginActivity extends Activity {
 

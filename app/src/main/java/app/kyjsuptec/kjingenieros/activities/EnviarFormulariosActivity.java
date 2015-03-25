@@ -1,4 +1,4 @@
-package app.kyjsuptec.kjingenieros;
+package app.kyjsuptec.kjingenieros.activities;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
@@ -21,6 +21,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+
+import app.kyjsuptec.kjingenieros.adapters.FormularioAdapter;
+import app.kyjsuptec.kjingenieros.helpers.PDFWriterFormulario;
+import app.kyjsuptec.kjingenieros.R;
 
 
 public class EnviarFormulariosActivity extends Activity {
@@ -131,7 +135,7 @@ public class EnviarFormulariosActivity extends Activity {
 				}
 				if (enviar.size() == 0) {
 					Toast.makeText(this,
-							"No ha seleccionado ning�n formulario",
+							"No ha seleccionado ningún formulario",
 							Toast.LENGTH_SHORT).show();
 				} else {
 					enviarMail(enviar);

@@ -5,7 +5,7 @@
 //  by Javier Santo Domingo (j-a-s-d@coderesearchlabs.com)
 //
 
-package app.kyjsuptec.kjingenieros;
+package app.kyjsuptec.kjingenieros.helpers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,6 +20,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.TextView;
+
+import app.kyjsuptec.kjingenieros.R;
 import crl.android.pdfwriter.PDFWriter;
 import crl.android.pdfwriter.PaperSize;
 import crl.android.pdfwriter.StandardFonts;

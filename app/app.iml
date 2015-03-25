@@ -87,12 +87,17 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3.1" level="project" />
-    <orderEntry type="library" exported="" name="Parse-1.8.3" level="project" />
-    <orderEntry type="library" exported="" name="gson-2.0-rc" level="project" />
-    <orderEntry type="library" exported="" name="bolts-android-1.1.4" level="project" />
+    <orderEntry type="library" exported="" name="fontbox-0.1.0" level="project" />
+    <orderEntry type="library" exported="" name="jempbox-0.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-6.5.87" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.0.0" level="project" />
+    <orderEntry type="library" exported="" name="Parse-1.8.3" level="project" />
+    <orderEntry type="library" exported="" name="gson-2.0-rc" level="project" />
+    <orderEntry type="library" exported="" name="bcprov-jdk14-136" level="project" />
+    <orderEntry type="library" exported="" name="bolts-android-1.1.4" level="project" />
+    <orderEntry type="library" exported="" name="bcmail-jdk14-136" level="project" />
+    <orderEntry type="library" exported="" name="pdfbox-0.7.3" level="project" />
   </component>
 </module>
 

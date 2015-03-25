@@ -1,4 +1,4 @@
-package app.kyjsuptec.kjingenieros;
+package app.kyjsuptec.kjingenieros.activities;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -54,7 +54,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import app.kyjsuptec.kjingenieros.controllers.UserManager;
+import app.kyjsuptec.kjingenieros.R;
+import app.kyjsuptec.kjingenieros.factory.FormularioFactory;
+import app.kyjsuptec.kjingenieros.factory.FormularioViewGenerator;
+import app.kyjsuptec.kjingenieros.helpers.PDFWriterFormulario;
 
 public class FormularioActivity extends FragmentActivity {
     static Intent generalIntent;
@@ -290,7 +293,7 @@ public class FormularioActivity extends FragmentActivity {
                 }
                 if (!texto.equals("")) {
                     Log.e("Texto", texto);
-                    datosPDF.add("Evidencia escrita: " + texto);
+                    datosPDF.add("Observaciones: " + texto);
                 } else {
                     datosPDF.add("EMPTY");
                 }
@@ -355,10 +358,6 @@ public class FormularioActivity extends FragmentActivity {
 
     private boolean recogerDatos(boolean isTemporal) {
 
-        datosPDF.add("Proyecto: " + UserManager.getProyecto(this));
-        datosPDF.add("Revisó: " + UserManager.getReviso(this));
-        datosPDF.add("Aprobó: " + UserManager.getAprobo(this));
-
         for (int i = 0; i < arrayListFormulario.size(); i++) {
 
             View elemento = arrayListElementosFormulario.get(i);
@@ -381,7 +380,11 @@ public class FormularioActivity extends FragmentActivity {
                         if (isTemporal) {
                             datosPDF.add(texto);
                         } else {
-                            datosPDF.add(titulo + " : " + texto);
+                            if (arrayListFormulario.get(i).isEsSubtitulo()) {
+                                datosPDF.add("      " + titulo + " : " + texto);
+                            } else {
+                                datosPDF.add(titulo + " : " + texto);
+                            }
                         }
                     }
 
@@ -412,7 +415,12 @@ public class FormularioActivity extends FragmentActivity {
                         if (isTemporal) {
                             datosPDF.add("No aplica");
                         } else {
-                            datosPDF.add(titulo + ": No aplica");
+                            if (arrayListFormulario.get(i).isEsSubtitulo()) {
+                                datosPDF.add("      " + titulo + ": No aplica");
+                            } else {
+                                datosPDF.add(titulo + ": No aplica");
+                            }
+
                         }
                     } else {
                         String textoEdit = editTextFormulariosCheckbox.getText()
@@ -427,7 +435,14 @@ public class FormularioActivity extends FragmentActivity {
                             if (isTemporal) {
                                 datosPDF.add(textoEdit);
                             } else {
-                                datosPDF.add(titulo + " : " + textoEdit);
+                                //datosPDF.add(titulo + " : " + textoEdit);
+
+                                if (arrayListFormulario.get(i).isEsSubtitulo()) {
+                                    datosPDF.add("      " + titulo + " : " + textoEdit);
+                                } else {
+                                    datosPDF.add(titulo + " : " + textoEdit);
+                                }
+
                             }
                         }
                     }
@@ -441,8 +456,11 @@ public class FormularioActivity extends FragmentActivity {
                         datosPDF.add(spinnerFormularios.getSelectedItem()
                                 .toString());
                     } else {
-                        datosPDF.add(titulo + " : "
-                                + spinnerFormularios.getSelectedItem().toString());
+                        if (arrayListFormulario.get(i).isEsSubtitulo()) {
+                            datosPDF.add("      " + titulo + " : " + spinnerFormularios.getSelectedItem().toString());
+                        } else {
+                            datosPDF.add(titulo + " : " + spinnerFormularios.getSelectedItem().toString());
+                        }
                     }
 
                     break;
@@ -457,7 +475,7 @@ public class FormularioActivity extends FragmentActivity {
                     Calendar cal = Calendar.getInstance();
                     cal.set(year, month, day);
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     String formatedDate = sdf.format(cal.getTime());
 
                     if (isTemporal) {
@@ -797,7 +815,46 @@ public class FormularioActivity extends FragmentActivity {
             bmOptions.inPurgeable = true;
 
             Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-            mImageView.setImageBitmap(bitmap);
+
+
+            ///Bitmap rotation try
+
+            int rotate = 0;
+            try {
+                File imageFile = new File(mCurrentPhotoPath);
+                ExifInterface exif = new ExifInterface(
+                        imageFile.getAbsolutePath());
+                int orientation = exif.getAttributeInt(
+                        ExifInterface.TAG_ORIENTATION,
+                        ExifInterface.ORIENTATION_NORMAL);
+
+                Log.e("Orientation", " " + orientation);
+
+                switch (orientation) {
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        rotate = 270;
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        rotate = 180;
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        rotate = 90;
+                        break;
+                }
+                Log.e("Torcida", "Exif orientation: " + orientation);
+                /****** Image rotation ****/
+                Matrix matrix = new Matrix();
+                matrix.setRotate(rotate, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+                //matrix.postRotate(orientation);
+                Bitmap cropped = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                mImageView.setImageBitmap(cropped);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            //Put Rotated
+            //mImageView.setImageBitmap(bitmap);
         }
 
         private Bitmap improvePic() {
@@ -819,9 +876,48 @@ public class FormularioActivity extends FragmentActivity {
             bmOptions.inJustDecodeBounds = false;
             bmOptions.inSampleSize = scaleFactor;
 
-            return  BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+            Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+
+            Bitmap cropped = bitmap;
+            ///Bitmap rotation try
+
+            int rotate = 0;
+            try {
+                File imageFile = new File(mCurrentPhotoPath);
+                ExifInterface exif = new ExifInterface(
+                        imageFile.getAbsolutePath());
+                int orientation = exif.getAttributeInt(
+                        ExifInterface.TAG_ORIENTATION,
+                        ExifInterface.ORIENTATION_NORMAL);
+
+                Log.e("Orientation", " " + orientation);
+
+                switch (orientation) {
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        rotate = 270;
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        rotate = 180;
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        rotate = 90;
+                        break;
+                }
+                Log.e("Torcida", "Exif orientation: " + orientation);
+                /****** Image rotation ****/
+                Matrix matrix = new Matrix();
+                matrix.setRotate(rotate, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+                //matrix.postRotate(orientation);
+                cropped = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return cropped;
+
 
         }
+
 
         public void onActivityResult(int requestCode, int resultCode,
                                      Intent imageReturnedIntent) {
@@ -860,6 +956,7 @@ public class FormularioActivity extends FragmentActivity {
                             setPic(foto1);
                             pic1 = redimensionarImagen(improvePic());
                             isFoto1Default = false;
+                            Log.e("File", file.delete() + " noes exists");
                         } else {
                             Log.e("File", "oh noes exists");
 
@@ -896,10 +993,10 @@ public class FormularioActivity extends FragmentActivity {
                         isFoto1Default = false;
                     }
                     break;
-                case 2:// Toma foto
+                case CAMERA_REQUEST_2:// Toma foto
                     if (resultCode == RESULT_OK) {
 
-                        byte[] data = extras.getByteArray("pic");
+                        /*byte[] data = extras.getByteArray("pic");
 
                         fotoBitmapFinal = BitmapFactory.decodeByteArray(data, 0,
                                 data.length);
@@ -909,7 +1006,22 @@ public class FormularioActivity extends FragmentActivity {
                                 fotoBitmapFinal, 400, 400, false);
 
                         foto2.setImageBitmap(fotoBitmapFinal);
-                        isFoto2Default = false;
+                        isFoto2Default = false;*/
+
+
+                        File file = new File(mCurrentPhotoPath);
+                        if (file.exists()) {
+                            Log.e("File 2", "exists");
+                            setPic(foto2);
+                            pic2 = redimensionarImagen(improvePic());
+                            isFoto2Default = false;
+                            Log.e("File 2", file.delete() + " noes exists");
+                        } else {
+                            Log.e("File 2", "oh noes exists");
+
+                        }
+
+
                     }
 
                     break;
@@ -1072,7 +1184,7 @@ public class FormularioActivity extends FragmentActivity {
         }
 
         //Test Method
-        private void dispatchTakePictureIntent() {
+        private void dispatchTakePictureIntent(int request_code) {
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                 File photoFile = null;
@@ -1085,7 +1197,7 @@ public class FormularioActivity extends FragmentActivity {
                 if (photoFile != null) {
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                             Uri.fromFile(photoFile));
-                    startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+                    startActivityForResult(takePictureIntent, request_code);
                 }
             }
         }
@@ -1123,12 +1235,13 @@ public class FormularioActivity extends FragmentActivity {
 //                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 //                startActivityForResult(cameraIntent, CAMERA_REQUEST);
 
-                dispatchTakePictureIntent();
+                dispatchTakePictureIntent(CAMERA_REQUEST);
 
             } else if (v == foto2) {
 
-                Intent intent = new Intent(getActivity(), CameraActivity.class);
-                startActivityForResult(intent, 2);
+                /*Intent intent = new Intent(getActivity(), CameraActivity.class);
+                startActivityForResult(intent, 2);*/
+                dispatchTakePictureIntent(CAMERA_REQUEST_2);
 
             }
         }

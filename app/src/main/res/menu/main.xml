@@ -1,19 +1,21 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="app.kyjsuptec.kjingenieros.activities.MainActivity">
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="Administrar Usuarios"/>
-    <item
-        android:id="@+id/action_logout"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="Cerrar Aplicación"/>
     <item
         android:id="@+id/action_new"
         android:icon="@drawable/ic_action_new"
-        android:showAsAction="ifRoom"
-        android:title="@string/app_name"/>
+        android:showAsAction="always"
+        android:title="@string/new_formulario"/>
+    <item
+        android:id="@+id/action_settings"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_group"
+        android:title="@string/administrar_usuarios"/>
+    <item
+        android:id="@+id/action_logout"
+        android:showAsAction="always"
+        android:title="@string/cerrar_sesion"/>
 
 </menu>

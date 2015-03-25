@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="acceder">Acceder</string>
-    <string name="show_dialog">¿Desea iniciar con un usuario local?</string>
+    <string name="show_dialog">No hay conexión a internet\n¿Desea iniciar como local?</string>
     <string name="desea_descartarlo">"¿Desea descartarlo? "</string>
 </resources>

@@ -1,4 +1,4 @@
-package app.kyjsuptec.kjingenieros;
+package app.kyjsuptec.kjingenieros.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -24,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.kyjsuptec.kjingenieros.R;
 import app.kyjsuptec.kjingenieros.controllers.NetworkManager;
 import app.kyjsuptec.kjingenieros.controllers.UserManager;
 
@@ -53,6 +55,7 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+    private CheckBox mRememberView;
     private View mProgressView;
     private View mLoginFormView;
     private boolean useLocalUser;
@@ -71,6 +74,7 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
         mPasswordView = (EditText) findViewById(R.id.password);
+        mRememberView = (CheckBox) findViewById(R.id.checkBoxRemember);
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -82,6 +86,13 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        if (UserManager.isSesionActive(this) && NetworkManager.isConnected(getApplicationContext())) {
+            showProgress(true);
+            mAuthTask = new UserLoginTask(UserManager.getUser(this), UserManager.getPassword(this));
+            mAuthTask.execute((Void) null);
+        }
+
     }
 
     private void shouldloginLocalUser(final String email, final String password) {
@@ -110,8 +121,6 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
                 .setNegativeButton("No", dialogClickListener).show();
 
     }
-
-    ;
 
     private void populateAutoComplete() {
         getLoaderManager().initLoader(0, null, this);
@@ -296,7 +305,23 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
             if (useLocalUser) {
-                return true;
+                if (mEmail.equals(getString(R.string.local_admin_name))) {
+                    if (mPassword.equals(UserManager.getLocalAdminPassword(getApplicationContext()))) {
+                        UserManager.setIsAdmin(getApplicationContext(), true);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if (mEmail.equals(getString(R.string.local_user_name))) {
+                    if (mPassword.equals(UserManager.getLocalUserPassword(getApplicationContext()))) {
+                        UserManager.setIsAdmin(getApplicationContext(), false);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
             } else {
                 try {
                     ParseUser mParseUser = ParseUser.logIn(mEmail, mPassword);
@@ -318,6 +343,7 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
             UserManager.setProyecto(applicationContext, mParseUser.getString("project"));
             UserManager.setReviso(applicationContext, mParseUser.getString("checked"));
             UserManager.setAprobo(applicationContext, mParseUser.getString("approved"));
+            UserManager.setIsAdmin(applicationContext, mParseUser.getBoolean("isAdmin"));
         }
 
         @Override
@@ -326,9 +352,13 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
             showProgress(false);
 
             if (success) {
-                Log.e("Success", "Dayum");
+                if (mRememberView.isChecked() && NetworkManager.isConnected(getApplicationContext())) {
+                    UserManager.setActiveSesion(getApplicationContext(), mEmail, mPassword);
+                }
+                Log.e("Success", "Login");
                 Intent generalIntent;
                 if (useLocalUser) {
+                    UserManager.setInactiveSesion(getApplicationContext());
                     generalIntent = new Intent(getApplicationContext(), LocalUserInitActivity.class);
                 } else {
                     generalIntent = new Intent(getApplicationContext(), MainActivity.class);
@@ -339,6 +369,7 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
                 Toast.makeText(getApplicationContext(), getString(R.string.wrong_data), Toast.LENGTH_SHORT).show();
                 //mPasswordView.setError(getString(R.string.error_incorrect_password));
                 //mPasswordView.requestFocus();
+                UserManager.setInactiveSesion(getApplicationContext());
             }
         }
 

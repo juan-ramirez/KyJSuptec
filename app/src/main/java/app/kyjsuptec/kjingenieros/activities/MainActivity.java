@@ -1,4 +1,4 @@
-package app.kyjsuptec.kjingenieros;
+package app.kyjsuptec.kjingenieros.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -25,6 +25,8 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+import app.kyjsuptec.kjingenieros.R;
+import app.kyjsuptec.kjingenieros.adapters.FormularioSimpleAdapter;
 import app.kyjsuptec.kjingenieros.controllers.UserManager;
 
 public class MainActivity extends Activity {
@@ -49,8 +51,6 @@ public class MainActivity extends Activity {
         ActionBar actionBar = getActionBar();
 
         setTitle("Formularios");
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         Log.e("Proyecto - Main", UserManager.getProyecto(this));
 
@@ -202,11 +202,8 @@ public class MainActivity extends Activity {
 
         Bundle bundle = getIntent().getExtras();
 
-        if (bundle != null) {
-            String result = bundle.getString("perfil", "empty");
-            if (!result.equals("administrador")) {
-                menu.findItem(R.id.action_settings).setVisible(false);
-            }
+        if (!UserManager.getIsAdmin(this)) {
+            menu.findItem(R.id.action_settings).setVisible(false);
         }
         return true;
     }
@@ -216,14 +213,17 @@ public class MainActivity extends Activity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Intent intent = new Intent(getApplicationContext(),
-                        AdministrarUsuariosActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AdministrarUsuariosActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.action_new:
-
                 showMessageFormularios();
-
+                return true;
+            case R.id.action_logout:
+                Intent mIntent = new Intent(getApplicationContext(), UserLoginActivity.class);
+                mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                UserManager.setInactiveSesion(getApplicationContext());
+                startActivity(mIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -1,4 +1,4 @@
-package app.kyjsuptec.kjingenieros;
+package app.kyjsuptec.kjingenieros.factory;
 
 import android.content.Context;
 import android.text.InputType;
@@ -15,6 +15,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.ArrayList;
+
+import app.kyjsuptec.kjingenieros.R;
+import app.kyjsuptec.kjingenieros.activities.DatoFormularioFactory;
 
 public class FormularioViewGenerator {
 

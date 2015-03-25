@@ -1,4 +1,4 @@
-package app.kyjsuptec.kjingenieros;
+package app.kyjsuptec.kjingenieros.adapters;
 
 import java.util.ArrayList;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import app.kyjsuptec.kjingenieros.R;
 
 public class FormularioSimpleAdapter extends ArrayAdapter<String> {
 	private Context context;

@@ -1,4 +1,4 @@
-package app.kyjsuptec.kjingenieros;
+package app.kyjsuptec.kjingenieros.activities;
 
 import java.io.IOException;
 
@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import app.kyjsuptec.kjingenieros.helpers.DataBaseHelper;
+import app.kyjsuptec.kjingenieros.R;
 
 public class CrearModificarUsuarioActivity extends Activity {
 
