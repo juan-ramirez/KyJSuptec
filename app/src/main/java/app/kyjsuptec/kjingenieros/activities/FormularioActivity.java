@@ -663,10 +663,10 @@ public class FormularioActivity extends FragmentActivity {
                         DatePicker datePickerFecha = (DatePicker) elemento
                                 .findViewById(R.id.datePickerFecha);
 
-                        String[] date = form.get(i + 3).split("-");
+                        String[] date = form.get(i + 3).split("/");
 
                         int day = Integer.parseInt(date[0]);
-                        int month = Integer.parseInt(date[1]) - 1;
+                        int month = Integer.parseInt(date[1])   - 1;
                         int year = Integer.parseInt(date[2]);
 
                         datePickerFecha.updateDate(year, month, day);
@@ -738,7 +738,7 @@ public class FormularioActivity extends FragmentActivity {
         private void inicializarSpinner(View rootView) {
             ArrayList<String> SpinnerArray = new ArrayList<String>();
             SpinnerArray.add("Evidencia fotográfica");
-            SpinnerArray.add("Evidencia escrita");
+            SpinnerArray.add("Observaciones");
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                     getActivity(), android.R.layout.simple_spinner_item,

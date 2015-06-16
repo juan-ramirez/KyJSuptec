@@ -14,7 +14,7 @@
         android:gravity="center_horizontal"
         android:maxLength="25"
         android:text="Memo - Expres"
-        android:textSize="24sp" />
+        android:textSize="24sp"/>
 
     <EditText
         android:id="@+id/editTextDe"
@@ -23,7 +23,8 @@
         android:ems="10"
         android:hint="De:"
         android:maxLength="25"
-        android:singleLine="true" >
+        android:singleLine="true"
+        android:visibility="gone" >
     </EditText>
 
     <EditText
@@ -33,7 +34,8 @@
         android:ems="10"
         android:hint="Para:"
         android:maxLength="25"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/editTextAsunto"
@@ -42,7 +44,8 @@
         android:ems="10"
         android:hint="Asunto:"
         android:maxLength="25"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/editTextContenido"

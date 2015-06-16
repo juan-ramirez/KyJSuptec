@@ -146,17 +146,17 @@ public class FormularioFactory {
     private ArrayList<DatoFormularioFactory> getf1() {
 
         formulario.add(new DatoFormularioFactory(TIPO_5, "Fecha revisión"));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Lote", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Cantidad Total", NUMERICO));
-        formulario.add(new DatoFormularioFactory(TITULO, "VARIABLES A CONTROLAR NTC-121 Numeral 7"));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Tipo", I_II_III_IV));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Marcas Legibles", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Palabra cemento Portland", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Marca", cemex_holcim_argos_ultracem));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Lugar de fabricación", ALFABETICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Masa teórica del bulto (Kg)", DECIMAL));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Masa promedio de bultos (Kg)", DECIMAL));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Almacenamiento (libre de humedad y de agentes contaminantes)", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "1. Lote", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "2. Cantidad Total", NUMERICO));
+        formulario.add(new DatoFormularioFactory(TITULO, "3. VARIABLES A CONTROLAR NTC-121 Numeral 7"));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "Tipo", I_II_III_IV, ES_SUBTITULO));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "Marcas Legibles", cumple_nocumple, ES_SUBTITULO));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "Palabra cemento Portland", cumple_nocumple, ES_SUBTITULO));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "Marca", cemex_holcim_argos_ultracem, ES_SUBTITULO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "Lugar de fabricación", ES_SUBTITULO, ALFABETICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "Masa teórica del bulto (Kg)", ES_SUBTITULO, DECIMAL));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "Masa promedio de bultos (Kg)", ES_SUBTITULO, DECIMAL));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "Almacenamiento (libre de humedad y de agentes contaminantes)", cumple_nocumple, ES_SUBTITULO));
 
         return formulario;
     }
@@ -181,25 +181,25 @@ public class FormularioFactory {
     private ArrayList<DatoFormularioFactory> getf3() {
 
         formulario.add(new DatoFormularioFactory(TIPO_5, "Fecha revisión"));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Elemento", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Ubicación", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Plano", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TITULO, "Replanteo Geométrico"));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "1. Elemento", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "2. Ubicación", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "3. Plano", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TITULO, "4. Replanteo Geométrico"));
         //Revisar tipo
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Ejes", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TITULO, "Sección típica excavación"));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "Ejes", ES_SUBTITULO, ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TITULO, "5. Sección típica excavación"));
         formulario.add(new DatoFormularioFactory(TIPO_1, "Profundidad (m)", ES_SUBTITULO, DECIMAL));
         formulario.add(new DatoFormularioFactory(TIPO_1, "Ancho (m)", ES_SUBTITULO, DECIMAL));
-        formulario.add(new DatoFormularioFactory(TITULO, "Sección Modificada"));
+        formulario.add(new DatoFormularioFactory(TITULO, "6. Sección Modificada"));
         formulario.add(new DatoFormularioFactory(TIPO_1, "Sobre excavación (m)", ES_SUBTITULO, DECIMAL));
         formulario.add(new DatoFormularioFactory(TIPO_1, "Sobre ancho (m)", ES_SUBTITULO, DECIMAL));
-        formulario.add(new DatoFormularioFactory(TITULO, "Estrato portante"));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Condición estrato", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Profundidad (m)", DECIMAL));
-        formulario.add(new DatoFormularioFactory(TITULO, "Condición de las Excavaciones"));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Limpieza de fondo", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Protección ", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Sistema de drenaje", bomba_noaplica));
+        formulario.add(new DatoFormularioFactory(TITULO, "7. Estrato portante"));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "Condición estrato", cumple_nocumple, ES_SUBTITULO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "Profundidad (m)", ES_SUBTITULO, DECIMAL));
+        formulario.add(new DatoFormularioFactory(TITULO, "8. Condición de las Excavaciones"));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "Limpieza de fondo", cumple_nocumple, ES_SUBTITULO));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "Protección ", cumple_nocumple, ES_SUBTITULO));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "Sistema de drenaje", bomba_noaplica, ES_SUBTITULO));
         //formulario.add(new DatoFormularioFactory(TIPO_4, "Solado de protección", cumple_nocumple_noaplica));
 
         return formulario;
@@ -208,24 +208,24 @@ public class FormularioFactory {
     private ArrayList<DatoFormularioFactory> getf4() {
 
         formulario.add(new DatoFormularioFactory(TIPO_5, "Fecha revisión"));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Elemento", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Ubicación", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Ejes", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Plano", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TITULO, "Resistencia del concreto (Mpa)"));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "f'c", NUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Medio de mezclado", mixer_concretadora));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Medio de transporte", torregrua_sistemabombeo_coche));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Medio de colocación", tolva_tuberia_coche_pala));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Medio de compactación", vibrador));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Tiempo entre mezcla y colocación (MIN) ", DECIMAL));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Homogeneidad en estado fresco", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "1. Elemento", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "2. Ubicación", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "3. Ejes", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "4. Plano", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TITULO, "5. Resistencia del concreto (Mpa)"));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "f'c", ES_SUBTITULO, NUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "6. Medio de mezclado", mixer_concretadora));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "7. Medio de transporte", torregrua_sistemabombeo_coche));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "8. Medio de colocación", tolva_tuberia_coche_pala));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "9. Medio de compactación", vibrador));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "10. Tiempo entre mezcla y colocación (MIN) ", DECIMAL));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "11. Homogeneidad en estado fresco", cumple_nocumple));
         formulario.add(new DatoFormularioFactory(
                 TIPO_4,
-                "Definición de juntas en construcción y/o dilatación y preparación de las superficies",
+                "12. Definición de juntas en construcción y/o dilatación y preparación de las superficies",
                 cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Provisiones para el vaciado según el clima", cumple_noaplica));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Sistema y procedimiento de curado", agua_aditivo));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "13. Provisiones para el vaciado según el clima", cumple_noaplica));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "14. Sistema y procedimiento de curado", agua_aditivo));
 
         return formulario;
     }
@@ -233,19 +233,18 @@ public class FormularioFactory {
     private ArrayList<DatoFormularioFactory> getf5() {
 
         formulario.add(new DatoFormularioFactory(TIPO_5, "Fecha"));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Elemento", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Ubicación", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Plano", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Ejes", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TITULO, "Estado General Obra falsa"));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Formaleta", bueno_regular_malo));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Equipo armado", bueno_regular_malo));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Alineación de la obra falsa", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Plomo de la obra falsa", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Nivel de la obra falsa", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Limpieza e impermeabilidad", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Resistencia y estabilidad ante posibles asentamiento", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Pases o instalaciones técnicas requeridas", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "1. Elemento", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "2. Ubicación", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "3. Ejes", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TITULO, "4. Estado General Obra falsa"));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "Formaleta", bueno_regular_malo, ES_SUBTITULO));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "Equipo armado", bueno_regular_malo, ES_SUBTITULO));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "5. Alineación de la obra falsa", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "6. Plomo de la obra falsa", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "7. Nivel de la obra falsa", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "8. Limpieza e impermeabilidad", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "9. Resistencia y estabilidad ante posibles asentamientos", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "10. Pases o instalaciones técnicas requeridas", cumple_nocumple));
 
         return formulario;
     }
@@ -253,37 +252,38 @@ public class FormularioFactory {
     private ArrayList<DatoFormularioFactory> getf6(int reps) {
 
         formulario.add(new DatoFormularioFactory(TIPO_5, "Fecha"));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Elemento", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Cantidad", NUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Ubicación", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Plano", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Ejes", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "1. Elemento", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "2. Cantidad", NUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "3. Ubicación", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "4. Plano", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "5. Ejes", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TITULO, "6. Barras"));
 
         for (int i = 0; i < reps; i++) {
-            formulario.add(new DatoFormularioFactory(TITULO, "Grado (Mpa)"));
-            formulario.add(new DatoFormularioFactory(TIPO_1, "Barras", NUMERICO));
-            formulario.add(new DatoFormularioFactory(TIPO_1, "Mallas", NUMERICO));
-            formulario.add(new DatoFormularioFactory(TITULO, "Diámetros y/o especificaciones"));
-            formulario.add(new DatoFormularioFactory(TIPO_1, "Barras (#)", NUMERICO));
-            formulario.add(new DatoFormularioFactory(TIPO_3, "Mallas", ALFANUMERICO));
-            formulario.add(new DatoFormularioFactory(TIPO_1, "N° de Barras", NUMERICO));
-            formulario.add(new DatoFormularioFactory(TIPO_1, "Longitud (m)", DECIMAL));
-            formulario.add(new DatoFormularioFactory(TITULO, "Ganchos"));
-            formulario.add(new DatoFormularioFactory(TIPO_1, "Cantidad", NUMERICO));
-            formulario.add(new DatoFormularioFactory(TIPO_1, "Barras (#)", NUMERICO));
+            formulario.add(new DatoFormularioFactory(TITULO, "  Grado (Mpa)"));
+            formulario.add(new DatoFormularioFactory(TIPO_1, "  Barras", ES_SUBTITULO, NUMERICO));
+            formulario.add(new DatoFormularioFactory(TIPO_1, "  Mallas", ES_SUBTITULO, NUMERICO));
+            formulario.add(new DatoFormularioFactory(TITULO, "  Diámetros y/o especificaciones"));
+            formulario.add(new DatoFormularioFactory(TIPO_1, "  Barras (#)", ES_SUBTITULO, NUMERICO));
+            formulario.add(new DatoFormularioFactory(TIPO_3, "  Mallas", ES_SUBTITULO, ALFANUMERICO));
+            formulario.add(new DatoFormularioFactory(TIPO_1, "  N° de Barras", NUMERICO));
+            formulario.add(new DatoFormularioFactory(TIPO_1, "  Longitud (m)", DECIMAL));
+            formulario.add(new DatoFormularioFactory(TITULO, "  Ganchos"));
+            formulario.add(new DatoFormularioFactory(TIPO_1, "  Cantidad", ES_SUBTITULO, NUMERICO));
+            formulario.add(new DatoFormularioFactory(TIPO_1, "  Barras (#)", ES_SUBTITULO, NUMERICO));
         }
 
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Empalmes (Traslapos conexiones)", cumple_nocumple_noaplica));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Estribos, disposición y cantidad", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "7. Empalmes (Traslapos conexiones)", cumple_nocumple_noaplica));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "8. Estribos, disposición y cantidad", cumple_nocumple));
         formulario.add(new DatoFormularioFactory(
                 TIPO_4,
-                "Ubicación de refuerzo para anclaje de muros u otros elementos estructurales",
+                "9. Ubicación de refuerzo para anclaje de muros u otros elementos estructurales",
                 cumple_nocumple_noaplica));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Limpieza del refuerzo y de la zona de vaciado", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Tolerancia de colocación del refuerzo", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Tolerancia de separación entre barras", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Recubrimiento", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Refuerzo de retracción y temperatura", cumple_nocumple_noaplica));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "10. Limpieza del refuerzo y de la zona de vaciado", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "11. Tolerancia de colocación del refuerzo", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "12. Tolerancia de separación entre barras", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "13. Recubrimiento", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "14. Refuerzo de retracción y temperatura", cumple_nocumple_noaplica));
 
         return formulario;
     }
@@ -291,21 +291,21 @@ public class FormularioFactory {
     private ArrayList<DatoFormularioFactory> getf7() {
 
         formulario.add(new DatoFormularioFactory(TIPO_5, "Fecha"));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Elemento", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Ubicación", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Plano", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Ejes", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Alineación del elemento vaciado", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Plomo del elemento vaciado", cumple_nocumple));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Nivel de elemento vaciado ", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "1. Elemento", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "2. Ubicación", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "3. Plano", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "4. Ejes", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "5. Alineación del elemento vaciado", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "6. Plomo del elemento vaciado", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "7. Nivel de elemento vaciado ", cumple_nocumple));
         formulario.add(new DatoFormularioFactory(
                 TIPO_4,
-                "Ubicación de refuerzo para anclaje de muros u otros elementos estructurales",
+                "8. Ubicación de refuerzo para anclaje de muros u otros elementos estructurales",
                 cumple_nocumple_noaplica));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Reparación de defectos estructurales", requiere_norequiere));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Reparación de defectos superficiales", requiere_norequiere));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Rechazo de elementos vaciados", si_no));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Aceptación del concreto (Obtención de la resistencia f´c)", cumple_nocumple));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "9. Reparación de defectos estructurales", requiere_norequiere));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "10. Reparación de defectos superficiales", requiere_norequiere));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "11. Rechazo de elementos vaciados", si_no));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "12. Aceptación del concreto (Obtención de la resistencia f´c)", cumple_nocumple));
 
         return formulario;
     }
@@ -313,11 +313,11 @@ public class FormularioFactory {
     private ArrayList<DatoFormularioFactory> getf8() {
 
         formulario.add(new DatoFormularioFactory(TIPO_5, "Fecha revisión"));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Muro", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Ubicación", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Plano", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "1. Muro", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "2. Ubicación", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "3. Plano", ALFANUMERICO));
 
-        formulario.add(new DatoFormularioFactory(TITULO, "Condiciones de la ejecución"));
+        formulario.add(new DatoFormularioFactory(TITULO, "4. Condiciones de la ejecución"));
         formulario.add(new DatoFormularioFactory(TIPO_4, "Mezclado mortero de pega", cumple_nocumple, ES_SUBTITULO));
         formulario.add(new DatoFormularioFactory(TIPO_4, "Mezclado mortero de inyección", cumple_nocumple_noaplica, ES_SUBTITULO));
         formulario.add(new DatoFormularioFactory(TIPO_4, "Alineamiento", cumple_nocumple, ES_SUBTITULO));
@@ -327,7 +327,7 @@ public class FormularioFactory {
         formulario.add(new DatoFormularioFactory(TIPO_4, "Traba (uniones)", cumple_nocumple_noaplica, ES_SUBTITULO));
         formulario.add(new DatoFormularioFactory(TIPO_4, "Juntas de Pega (espesor)", cumple_nocumple, ES_SUBTITULO));
         formulario.add(new DatoFormularioFactory(TIPO_4, "Ventanas de inspeccion", cumple_nocumple_noaplica, ES_SUBTITULO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Altura de inyección", ES_SUBTITULO, ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "Altura de inyección (m)", ES_SUBTITULO, NUMERICO));
         formulario.add(new DatoFormularioFactory(TIPO_4, "Colocación de ductos y tuberías embebidas", cumple_nocumple_noaplica, ES_SUBTITULO));
         formulario.add(new DatoFormularioFactory(TIPO_4, "Juntas de control", cumple_nocumple_noaplica, ES_SUBTITULO));
         formulario.add(new DatoFormularioFactory(TIPO_4, "Anclaje de dovelas", cumple_nocumple_noaplica, ES_SUBTITULO));
@@ -341,15 +341,15 @@ public class FormularioFactory {
     private ArrayList<DatoFormularioFactory> getf9() {
 
         formulario.add(new DatoFormularioFactory(TIPO_5, "Fecha"));
-        formulario.add(new DatoFormularioFactory(TIPO_2, "Hora"));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Elemento a revisar", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Ubicación", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "Ejes", ALFANUMERICO));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Niveles y ejes", cumple_nocumple_noaplica));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Plomos", cumple_nocumple_noaplica));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Formaleta", cumple_nocumple_noaplica));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Acero de refuerzo", cumple_nocumple_noaplica));
-        formulario.add(new DatoFormularioFactory(TIPO_4, "Aseo", cumple_nocumple_noaplica));
+        formulario.add(new DatoFormularioFactory(TIPO_2, "1. Hora"));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "2. Elemento a revisar", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "3. Ubicación", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "4. Ejes", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "5. Niveles y ejes", cumple_nocumple_noaplica));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "6. Plomos", cumple_nocumple_noaplica));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "7. Formaleta", cumple_nocumple_noaplica));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "8. Acero de refuerzo", cumple_nocumple_noaplica));
+        formulario.add(new DatoFormularioFactory(TIPO_4, "9. Aseo", cumple_nocumple_noaplica));
         formulario.add(new DatoFormularioFactory(TITULO, "Firma constructor"));
         return formulario;
     }

@@ -102,8 +102,9 @@ public class MemoExpressActivity extends Activity {
     }
 
     private boolean verificarVacios() {
-        return campoDe.equals("") || campoPara.equals("")
-                || campoAsunto.equals("") || campoContenido.equals("");
+        //        return campoDe.equals("") || campoPara.equals("")
+        //                || campoAsunto.equals("") || campoContenido.equals("");
+        return campoContenido.equals("");
     }
 
     @Override
@@ -339,11 +340,11 @@ public class MemoExpressActivity extends Activity {
 
 
     }
-//Tryout
+    //Tryout
 
 
     protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent imageReturnedIntent) {
+            Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
         Bundle extras = null;
         if (imageReturnedIntent != null) {
@@ -430,7 +431,7 @@ public class MemoExpressActivity extends Activity {
 
     // Creating Context Menu
     public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenuInfo menuInfo) {
+            ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         lastContextMenuButton = v;
         menu.setHeaderTitle("Opciones de Fotos");
@@ -482,7 +483,7 @@ public class MemoExpressActivity extends Activity {
     public static int getOrientation(Context context, Uri photoUri) {
         /* it's on the external media. */
         Cursor cursor = context.getContentResolver().query(photoUri,
-                new String[]{MediaStore.Images.ImageColumns.ORIENTATION},
+                new String[] {MediaStore.Images.ImageColumns.ORIENTATION},
                 null, null, null);
 
         if (cursor.getCount() != 1) {

@@ -220,13 +220,28 @@ public class PDFWriterFormulario {
                 jumpIndex = 0;
             }
 
-            String linea = datos.get(i);
+            String linea = newDatos.get(i);
+            String indent = "      ";
+            Log.e("Linea", "Size: " + linea.length());
             if (linea.length() > 71) {
-                ArrayList<String> lineas = splitLineas(linea);
-                datos.remove(i);
-                for (int k = 0; k < lineas.size(); k++) {
-                    String elemento = lineas.get(k);
-                    datos.add(i + k, elemento);
+                //ArrayList<String> lineas = splitLineas(linea);
+                String[] lineas = splitIntoLine(linea, 70);
+                newDatos.remove(i);
+                for (int k = 0; k < lineas.length; k++) {
+                    String elemento = lineas[k];
+                    if (k == 0) {
+                        if (linea.contains(indent)) {
+                            newDatos.add(i + k, indent + elemento);
+                        } else {
+                            newDatos.add(i + k, elemento);
+                        }
+                    } else {
+                        if (linea.contains(indent)) {
+                            newDatos.add(i + k,"    " + indent + elemento);
+                        } else {
+                            newDatos.add(i + k, "    " + elemento);
+                        }
+                    }
                 }
             }
 
@@ -455,9 +470,9 @@ public class PDFWriterFormulario {
         int lineStart = 600;
         int lineJump = TAMANO_FUENTE + 10;
 
-        mPDFWriter.addText(MARGIN_LEFT, lineStart - lineJump, TAMANO_FUENTE, "De: " + datos.get(0));
-        mPDFWriter.addText(MARGIN_LEFT, lineStart - (lineJump * 2), TAMANO_FUENTE, "Para: " + datos.get(1));
-        mPDFWriter.addText(MARGIN_LEFT, lineStart - (lineJump * 3), TAMANO_FUENTE, "Asunto: " + datos.get(2));
+        mPDFWriter.addText(MARGIN_LEFT, lineStart - lineJump, TAMANO_FUENTE, "De: Interventoría");
+        mPDFWriter.addText(MARGIN_LEFT, lineStart - (lineJump * 2), TAMANO_FUENTE, "Para: Constructor");
+        mPDFWriter.addText(MARGIN_LEFT, lineStart - (lineJump * 3), TAMANO_FUENTE, "Asunto: Temas de obra");
 
         Log.e("Datos", datos.get(3));
 

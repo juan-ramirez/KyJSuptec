@@ -25,7 +25,7 @@
     <string name="incomplete_check">El formulario se encuentra incompleto, ¿Desea guardarlo así?</string>
 
     <string name="FST001_TITULO">EMPAQUE Y ROTULADO DE CEMENTO - FST001</string>
-    <string name="FST002_TITULO">EVALUACIÓN ASENTAMIENTO CONCRETO - FST002</string>
+    <string name="FST002_TITULO">EVALUACIÓN ASENTAMIENTO DE CONCRETO - FST002</string>
     <string name="FST003_TITULO">VERIFICACIÓN CONDICIONES DE CIMENTACIÓN - FST003</string>
     <string name="FST004_TITULO">MEZCLA, TRANSPORTE, COLOCACIÓN Y CURADO DE CONCRETOS - FST004</string>
     <string name="FST005_TITULO">CONSTRUCCIÓN DE FORMALETAS Y OBRA FALSA - FST005</string>

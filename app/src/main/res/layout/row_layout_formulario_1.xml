@@ -27,7 +27,6 @@
         android:layout_marginLeft="18dp"
         android:layout_toRightOf="@+id/textViewFormularios"
         android:ems="10"
-        android:text="12445"
         android:focusable="true"
         android:maxLength="25" >
     </EditText>
