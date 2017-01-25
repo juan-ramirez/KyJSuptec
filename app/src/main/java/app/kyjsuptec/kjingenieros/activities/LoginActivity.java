@@ -7,19 +7,14 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.parse.LogInCallback;
-import com.parse.ParseException;
-import com.parse.ParseUser;
-
 import java.io.IOException;
 
-import app.kyjsuptec.kjingenieros.helpers.DataBaseHelper;
 import app.kyjsuptec.kjingenieros.R;
+import app.kyjsuptec.kjingenieros.helpers.DataBaseHelper;
 
 public class LoginActivity extends Activity {
 
@@ -35,19 +30,6 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ActionBar actionBar = getActionBar();
-
-        //Parse
-
-        // Enable Local Datastore.
-        ParseUser.logInInBackground("Juan_Ramirez", "juanchogg", new LogInCallback() {
-            public void done(ParseUser user, ParseException e) {
-                if (user != null) {
-                    Log.e("Project", user.getString("project"));
-                } else {
-                    Log.e("Failed", e.toString() + " " + e.getCode());
-                }
-            }
-        });
 
         /*actionBar.hide();
         inicializarBD();
@@ -90,7 +72,7 @@ public class LoginActivity extends Activity {
         verificarVacios();
         obtenerCredenciales();
         if (validarCredenciales()) {
-            Intent generalIntent = new Intent(getApplicationContext(),MainActivity.class);
+            Intent generalIntent = new Intent(getApplicationContext(), MainActivity.class);
             generalIntent.putExtra("perfil", perfil);
             startActivity(generalIntent);
             database.close();
@@ -121,7 +103,7 @@ public class LoginActivity extends Activity {
         if (c.getCount() > 0) {
             perfil = c.getString(c.getColumnIndex("perfil"));
             Toast.makeText(getApplicationContext(), perfil, Toast.LENGTH_SHORT)
-                    .show();
+                 .show();
             c.close();
             return true;
         } else {

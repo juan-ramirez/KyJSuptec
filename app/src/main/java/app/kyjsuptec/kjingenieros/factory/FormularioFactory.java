@@ -173,7 +173,7 @@ public class FormularioFactory {
         formulario.add(new DatoFormularioFactory(TITULO, "5. Asentamiento (CM)"));
         formulario.add(new DatoFormularioFactory(TIPO_1, "Teórico", ES_SUBTITULO, DECIMAL));
         formulario.add(new DatoFormularioFactory(TIPO_1, "Real", ES_SUBTITULO, DECIMAL));
-        formulario.add(new DatoFormularioFactory(TIPO_3, "6. Elemento estrucutral vaciado", ALFANUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_3, "6. Elemento estructural vaciado", ALFANUMERICO));
 
         return formulario;
     }

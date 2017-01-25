@@ -17,6 +17,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +29,17 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.parse.ParseException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -37,6 +48,9 @@ import java.util.List;
 import app.kyjsuptec.kjingenieros.R;
 import app.kyjsuptec.kjingenieros.controllers.NetworkManager;
 import app.kyjsuptec.kjingenieros.controllers.UserManager;
+import app.kyjsuptec.kjingenieros.model.User;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -61,6 +75,10 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
     private boolean useLocalUser;
     private boolean cancelLogin;
 
+    //Firebase
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference mDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +87,8 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
 
         getActionBar().hide();
 
+        //Setup Firebase
+        setupFirebase();
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -95,6 +115,25 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
 
     }
 
+    private void setupFirebase() {
+        mAuth = FirebaseAuth.getInstance();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
+    }
+
     private void shouldloginLocalUser(final String email, final String password) {
 
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -118,7 +157,7 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
 
         AlertDialog.Builder builder = new AlertDialog.Builder(UserLoginActivity.this);
         builder.setMessage(R.string.show_dialog).setPositiveButton("Si", dialogClickListener)
-                .setNegativeButton("No", dialogClickListener).show();
+               .setNegativeButton("No", dialogClickListener).show();
 
     }
 
@@ -178,8 +217,48 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
             if (NetworkManager.isConnected(getApplicationContext())) {
                 useLocalUser = false;
                 showProgress(true);
-                mAuthTask = new UserLoginTask(email, password);
-                mAuthTask.execute((Void) null);
+                mAuth.signInWithEmailAndPassword(email, password)
+                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                         @Override
+                         public void onComplete(@NonNull Task<AuthResult> task) {
+
+                             if (task.isSuccessful()) {
+                                 String userUUID = task.getResult().getUser().getUid();
+                                 Log.d("USER", userUUID);
+
+                                 final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                 DatabaseReference reference = database.getReference();
+
+                                 Query query = reference.child("users").orderByChild("UUID").equalTo(userUUID);
+                                 query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                     @Override
+                                     public void onDataChange(DataSnapshot dataSnapshot) {
+                                         if (dataSnapshot.exists()) {
+                                             for (DataSnapshot userDataSnapshot : dataSnapshot.getChildren()) {
+                                                 User mUser = userDataSnapshot.getValue(User.class);
+                                                 setUserElements(mUser);
+
+                                                 showProgress(false);
+
+                                                 Intent generalIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                                 startActivity(generalIntent);
+                                                 finish();
+                                             }
+                                         }
+                                     }
+
+                                     @Override
+                                     public void onCancelled(DatabaseError databaseError) {
+
+                                     }
+                                 });
+                             }
+
+                             if (!task.isSuccessful()) {
+                                 Log.w(TAG, "signInWithEmail", task.getException());
+                             }
+                         }
+                     });
             } else {
                 shouldloginLocalUser(email, password);
             }
@@ -187,13 +266,19 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
         }
     }
 
+
+    private void setUserElements(User mUser) {
+        UserManager.setProyecto(getApplicationContext(), mUser.getProject());
+        UserManager.setReviso(getApplicationContext(), mUser.getChecked());
+        UserManager.setAprobo(getApplicationContext(),  mUser.getApproved());
+        UserManager.setIsAdmin(getApplicationContext(),  mUser.getIsAdmin());
+    }
+
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.length() > 4;
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -234,6 +319,20 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
                 // Retrieve data rows for the device user's 'profile' contact.
@@ -242,7 +341,7 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
 
                 // Select only email addresses.
                 ContactsContract.Contacts.Data.MIMETYPE +
-                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
+                        " = ?", new String[] {ContactsContract.CommonDataKinds.Email
                 .CONTENT_ITEM_TYPE},
 
                 // Show primary email addresses first. Note that there won't be
@@ -295,6 +394,7 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
 
         private final String mEmail;
         private final String mPassword;
+        boolean authSuccess = false;
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -303,7 +403,6 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
             if (useLocalUser) {
                 if (mEmail.equals(getString(R.string.local_admin_name))) {
                     if (mPassword.equals(UserManager.getLocalAdminPassword(getApplicationContext()))) {
@@ -322,28 +421,8 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
                 } else {
                     return false;
                 }
-            } else {
-                try {
-                    ParseUser mParseUser = ParseUser.logIn(mEmail, mPassword);
-                    if (mParseUser != null) {
-                        setUserElements(mParseUser, getApplicationContext());
-                        return true;
-                    }
-                } catch (ParseException e) {
-                    Log.e("Failed", e.toString() + " " + e.getCode());
-                    return false;
-                }
             }
-
-            // TODO: register the new account here.
-            return false;
-        }
-
-        private void setUserElements(ParseUser mParseUser, Context applicationContext) {
-            UserManager.setProyecto(applicationContext, mParseUser.getString("project"));
-            UserManager.setReviso(applicationContext, mParseUser.getString("checked"));
-            UserManager.setAprobo(applicationContext, mParseUser.getString("approved"));
-            UserManager.setIsAdmin(applicationContext, mParseUser.getBoolean("isAdmin"));
+            return authSuccess;
         }
 
         @Override
@@ -360,11 +439,9 @@ public class UserLoginActivity extends Activity implements LoaderCallbacks<Curso
                 if (useLocalUser) {
                     UserManager.setInactiveSesion(getApplicationContext());
                     generalIntent = new Intent(getApplicationContext(), LocalUserInitActivity.class);
-                } else {
-                    generalIntent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(generalIntent);
+                    finish();
                 }
-                startActivity(generalIntent);
-                finish();
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.wrong_data), Toast.LENGTH_SHORT).show();
                 //mPasswordView.setError(getString(R.string.error_incorrect_password));
