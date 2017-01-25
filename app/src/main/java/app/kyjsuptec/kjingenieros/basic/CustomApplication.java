@@ -16,7 +16,6 @@ public class CustomApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        initializeParse();
         initializeLocalUsers();
     }
 
@@ -31,11 +30,5 @@ public class CustomApplication extends Application {
 
             settings.edit().putBoolean("isFirstExecution", false).commit();
         }
-    }
-
-    private void initializeParse() {
-        // Required - Initialize the Parse SDK
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, getString(R.string.parse_app_id), getString(R.string.parse_client_key));
     }
 }

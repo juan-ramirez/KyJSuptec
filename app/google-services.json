@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "312250557694",
+    "firebase_url": "https://kyjingenieros.firebaseio.com",
+    "project_id": "kyjingenieros",
+    "storage_bucket": "kyjingenieros.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312250557694:android:446472225599412d",
+        "android_client_info": {
+          "package_name": "app.kyjsuptec.kjingenieros"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "312250557694-805h5rjp18jpldm5viku559ghd1j6i2q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.kyjsuptec.kjingenieros",
+            "certificate_hash": "AC1E163BB2BB497A061DDDFD4F8C14855FE02A87"
+          }
+        },
+        {
+          "client_id": "312250557694-7vs812ihjfouqvnt4kkh3viu0n09iv81.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7u8bxuFEQKHDZYndsXoBHGAAxH-BYsiM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "312250557694-7vs812ihjfouqvnt4kkh3viu0n09iv81.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
