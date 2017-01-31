@@ -27,8 +27,8 @@ public class FormularioViewGenerator {
     ArrayList<DatoFormularioFactory> arrayListFormulario;
 
     public FormularioViewGenerator(LayoutInflater inflater,
-                                   ViewGroup container, Context context,
-                                   ArrayList<DatoFormularioFactory> arrayListFormulario) {
+            ViewGroup container, Context context,
+            ArrayList<DatoFormularioFactory> arrayListFormulario) {
         this.inflater = inflater;
         this.container = container;
         this.context = context;
@@ -62,13 +62,10 @@ public class FormularioViewGenerator {
                         editTextFormularios.setInputType(InputType.TYPE_CLASS_TEXT);
                         break;
                     case 3:
-
-                        editTextFormularios
-                                .setRawInputType(InputType.TYPE_CLASS_NUMBER);
+                        editTextFormularios.setRawInputType(InputType.TYPE_CLASS_NUMBER);
                         break;
                     case 4:
-                        editTextFormularios.setRawInputType(InputType.TYPE_CLASS_NUMBER
-                                | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                        editTextFormularios.setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                         break;
                 }
                 break;
@@ -107,7 +104,7 @@ public class FormularioViewGenerator {
 
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView,
-                                                         boolean isChecked) {
+                                    boolean isChecked) {
                                 if (isChecked) {
                                     editTextFormulariosCheckbox.setEnabled(false);
                                 } else {
@@ -122,7 +119,7 @@ public class FormularioViewGenerator {
                         container, false);
                 Spinner spinnerFormularios = (Spinner) rowView
                         .findViewById(R.id.spinnerFormularios);
-                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context,R.layout.simple_dropdown_item ,
+                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(context, R.layout.simple_dropdown_item,
                         arrayListFormulario.get(position).getListaSpinner());
                 spinnerArrayAdapter.setDropDownViewResource(R.layout.simple_dropdown_item_spinner);
                 spinnerFormularios.setAdapter(spinnerArrayAdapter);
@@ -143,7 +140,7 @@ public class FormularioViewGenerator {
                 .findViewById(R.id.textViewFormularios);
 
         textViewFormularios.setText(arrayListFormulario.get(position)
-                .getTitulo());
+                                                       .getTitulo());
 
         return rowView;
     }

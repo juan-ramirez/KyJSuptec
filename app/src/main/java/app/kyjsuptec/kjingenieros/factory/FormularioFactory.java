@@ -213,7 +213,7 @@ public class FormularioFactory {
         formulario.add(new DatoFormularioFactory(TIPO_1, "3. Ejes", ALFANUMERICO));
         formulario.add(new DatoFormularioFactory(TIPO_1, "4. Plano", ALFANUMERICO));
         formulario.add(new DatoFormularioFactory(TITULO, "5. Resistencia del concreto (Mpa)"));
-        formulario.add(new DatoFormularioFactory(TIPO_1, "f'c", ES_SUBTITULO, NUMERICO));
+        formulario.add(new DatoFormularioFactory(TIPO_1, "f'c", ES_SUBTITULO, DECIMAL));
         formulario.add(new DatoFormularioFactory(TIPO_4, "6. Medio de mezclado", mixer_concretadora));
         formulario.add(new DatoFormularioFactory(TIPO_4, "7. Medio de transporte", torregrua_sistemabombeo_coche));
         formulario.add(new DatoFormularioFactory(TIPO_4, "8. Medio de colocación", tolva_tuberia_coche_pala));

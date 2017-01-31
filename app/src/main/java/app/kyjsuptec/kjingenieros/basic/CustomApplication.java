@@ -1,10 +1,10 @@
 package app.kyjsuptec.kjingenieros.basic;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.multidex.MultiDex;
 import android.util.Log;
-
-import com.parse.Parse;
 
 import app.kyjsuptec.kjingenieros.R;
 import app.kyjsuptec.kjingenieros.controllers.UserManager;
@@ -30,5 +30,11 @@ public class CustomApplication extends Application {
 
             settings.edit().putBoolean("isFirstExecution", false).commit();
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(context);
+        MultiDex.install(this);
     }
 }

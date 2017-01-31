@@ -25,13 +25,10 @@ android {
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile fileTree(dir: 'libs', include: 'Parse-*.jar')
-
     compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'org.immutables:gson:2.0-rc'
+    compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.google.android.gms:play-services:10.0.1'
     compile 'com.google.firebase:firebase-auth:10.0.1'
 }
-
 
 apply plugin: 'com.google.gms.google-services'
